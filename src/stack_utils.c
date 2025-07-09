@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 18:10:15 by abroslav          #+#    #+#             */
+/*   Updated: 2025/07/09 18:15:17 by abroslav         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 //Display for debug
@@ -83,7 +95,7 @@ t_sort_unit		*find_largest_value(t_sort_unit *stack)
 	t_sort_unit		*max_node;
 
 	max_value = LONG_MIN;
-	*max_node = NULL;
+	max_node = NULL;
 
 	while (stack)
 	{

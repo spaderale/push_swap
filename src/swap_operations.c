@@ -1,9 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swap_operations.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 18:29:59 by abroslav          #+#    #+#             */
+/*   Updated: 2025/07/09 18:30:26 by abroslav         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-//Swap the first two elements of a stack
-//
-//
-//
 static void		perform_swap(t_sort_unit **head)
 {
 	if (!*head || !(*head)->next)
