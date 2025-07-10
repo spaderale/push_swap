@@ -60,8 +60,8 @@ t_sort_unit		*get_cheapest_node(t_sort_unit *stack);
 //Move operations
 void		prepare_stack_a(t_sort_unit *stack_a, t_sort_unit *stack_b);
 void		prepare_stack_b(t_sort_unit *stack_a, t_sort_unit *stack_b);
-void		move_a_to_b(t_sort_unit **a, t_sort_unit **b);
-void		move_b_to_a(t_sort_unit **a, t_sort_unit **b);
+//void		move_a_to_b(t_sort_unit **a, t_sort_unit **b);
+//void		move_b_to_a(t_sort_unit **a, t_sort_unit **b);
 
 //Sort algorithms
 void		sort_three(t_sort_unit **stack);

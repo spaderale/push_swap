@@ -18,39 +18,43 @@ static int	count_tokens(char *str, char delimiter)
 	bool	in_token;
 
 	count = 0;
-	in_token = false;
 	while (*str)
 	{
-		if (*str != delimiter && !in_token)
+		in_token = false;
+		while (*str == delimiter)
+			++str;
+		while (*str != delimiter && *str)
 		{
-			count++;
-			in_token = true;
+			if (!in_token)
+			{
+				++count;
+				in_token = true;
+			}
+			++str;
 		}
-		else if (*str == delimiter)
-			in_token = false;
-		str++;
 	}
 	return (count);
 }
 
-static char		*extract_token(char *str, char delimiter, int *cursor)
+static char		*extract_token(char *str, char delimiter)
 {
+	static int	cursor = 0;
 	char	*token;
 	int		len;
 	int		i;
 
 	len = 0;
 	i = 0;
-	while (str[*cursor] == delimiter)
-		(*cursor)++;
-	while (str[*cursor + len] && str[*cursor + len] != delimiter)
-		len++;
+	while (str[cursor] == delimiter)
+		++cursor;
+	while ((str[cursor + len] != delimiter) && str[cursor + len])
+		++len;
 
-	token = malloc(len + 1);
+	token = malloc((size_t)len * sizeof(char) + 1);
 	if (!token)
 		return (NULL);
-	while (i < len)
-		token[i++] = str[(*cursor)++];
+	while ((str[cursor] != delimiter) && str[cursor])
+		token[i++] = str[cursor++];
 	token[i] = '\0';
 	return (token);
 }
@@ -59,16 +63,20 @@ char		**split(char *str, char delimiter)
 {
 	int		token_count;
 	char	**tokens;
-	int		cursor;
 	int		i;
 
-	cursor = 0;
 	i = 0;
 	if (!str || !*str)
 		return (NULL);
+	token_count = count_tokens(str, delimiter);
+	if (!token_count)
+		return (NULL);
+	tokens = malloc(sizeof(char *) * (size_t)(token_count + 1));
+	if (!tokens)
+		return (NULL);
 	while (i < token_count)
 	{
-		tokens[i] = extract_token(str, delimiter, &cursor);
+		tokens[i] = extract_token(str, delimiter);
 		if (!tokens[i])
 		{
 			while (i > 0)

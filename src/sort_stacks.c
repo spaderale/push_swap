@@ -16,8 +16,8 @@
 //and the target node in B be on the top - update index after rotation
 static void	rot_both(t_sort_unit **a, t_sort_unit **b, t_sort_unit *cheap_node)
 {
-	while (*b != cheap_node->target_node && * != cheap_node)
-		rra(a, b, false);
+	while (*b != cheap_node->target_node && *a != cheap_node)
+		rr(a, b, false);
 	update_node(*a);
 	update_node(*b);
 }
@@ -47,7 +47,7 @@ static void	move_a_to_b(t_sort_unit **a, t_sort_unit **b)
 		rot_both(a, b, cheapest_node);
 	else if (!cheapest_node->is_above_median && !cheapest_node->target_node->is_above_median)
 		rev_rot_both(a, b, cheapest_node);
-	prepare_for_push(a, cheapest_node 'a');
+	prepare_for_push(a, cheapest_node, 'a');
 	pb(b, a, false);
 }
 
@@ -76,7 +76,7 @@ void	sort_stacks(t_sort_unit **a, t_sort_unit **b)
 {
 	int	len_a;
 
-	len_a = stack_len;
+	len_a = stack_len(*a);
 	if (len_a-- > 3 && !is_stack_sorted(*a))
 		pb(b, a, false);
 	if (len_a-- > 3 && !is_stack_sorted(*a))

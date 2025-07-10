@@ -24,9 +24,11 @@ static void	process_input(int argc, char **argv, t_sort_unit **stack_a)
 			handle_errors(stack_a);
 		initialize_stack_a(stack_a, tokens);
 		i = 0;
-		while (tokens[i])
-			free(tokens[i++]);
-		free(tokens[i++]);
+		while (tokens[i]){
+			free(tokens[i]);
+			i++;
+		}
+		free(tokens);
 	}
 	else
 		initialize_stack_a(stack_a, argv + 1);

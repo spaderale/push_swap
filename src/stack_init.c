@@ -71,7 +71,7 @@ void		initialize_stack_a(t_sort_unit **stack_a, char **input_value)
 		if (validate_number_format(input_value[i]))
 			handle_errors(stack_a);
 		converted_value = convert_to_long(input_value[i]);
-		if (converted_value > INT_MIN || converted_value < INT_MIN)
+		if (converted_value < INT_MIN || converted_value > INT_MAX)
 			handle_errors(stack_a);
 		if (check_duplicate_number(*stack_a, (int)converted_value))
 			handle_errors(stack_a);
