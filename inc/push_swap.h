@@ -75,4 +75,13 @@ void		handle_errors(t_sort_unit **stack);
 
 char		**split(char *str, char delimiter);
 
+/*void		push_chunks_smart(t_sort_unit **a, t_sort_unit **b, int chunk_count);
+t_sort_unit	*find_closest_to_target(t_sort_unit *stack, int target);
+void		push_chunks_basic(t_sort_unit **a, t_sort_unit **b, int chunk_count);
+t_sort_unit	*find_node_in_range(t_sort_unit *stack, int min, int max)*/
+
+/* Protótipos das novas funções */
+void	optimize_push_to_b(t_sort_unit **a, t_sort_unit **b);
+void	optimize_final_sort(t_sort_unit **a, t_sort_unit **b);
+void	min_to_top(t_sort_unit **a);
 #endif

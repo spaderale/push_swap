@@ -116,3 +116,11 @@ void	prepare_for_push(t_sort_unit **stack, t_sort_unit *top_node, char stack_nam
 
 	}
 }
+
+void	min_to_top(t_sort_unit **a)
+{
+	t_sort_unit	*min_node;
+
+	min_node = find_smallest_value(*a);
+	prepare_for_push(a, min_node, 'a');
+}

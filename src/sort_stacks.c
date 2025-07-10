@@ -33,7 +33,7 @@ static void	rev_rot_both(t_sort_unit **a, t_sort_unit **b, t_sort_unit *cheap_no
 }
 
 //Move the cheap node from A to B - rotate ou reverse depending the node position
-static void	move_a_to_b(t_sort_unit **a, t_sort_unit **b)
+/*static void	move_a_to_b(t_sort_unit **a, t_sort_unit **b)
 {
 	t_sort_unit		*cheapest_node;
 
@@ -69,14 +69,16 @@ static void	min_to_top(t_sort_unit **a)
 		else
 			rra(a, false);
 	}
-}
+}*/
 
 //Turk algorithm
-void	sort_stacks(t_sort_unit **a, t_sort_unit **b)
+/*void	sort_stacks(t_sort_unit **a, t_sort_unit **b)
 {
 	int	len_a;
 
 	len_a = stack_len(*a);
+	if (len_a > 5)
+		push_chunks_smart(a, b, 5);
 	if (len_a-- > 3 && !is_stack_sorted(*a))
 		pb(b, a, false);
 	if (len_a-- > 3 && !is_stack_sorted(*a))
@@ -93,4 +95,26 @@ void	sort_stacks(t_sort_unit **a, t_sort_unit **b)
 		move_b_to_a(a, b);
 	}
 	min_to_top(a);
+}*/
+
+void sort_stacks(t_sort_unit **a, t_sort_unit **b)
+{
+    int len_a;
+
+    len_a = stack_len(*a);
+    if (len_a <= 1)
+        return;
+    if (!is_stack_sorted(*a))
+    {
+        if (len_a == 2)
+            sa(a, false);
+        else if (len_a == 3)
+            sort_three(a);
+        else
+        {
+            optimize_push_to_b(a, b);
+            sort_three(a);
+            optimize_final_sort(a, b);
+        }
+    }
 }

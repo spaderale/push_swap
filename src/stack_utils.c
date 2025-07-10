@@ -108,4 +108,3 @@ t_sort_unit		*find_largest_value(t_sort_unit *stack)
 	}
 	return (max_node);
 }
-

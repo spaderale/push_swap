@@ -33,7 +33,8 @@ SRCS	=	main.c \
 			move_a_to_b.c \
 			move_b_to_a.c \
 			sort_stacks.c \
-			split.c
+			split.c \
+			chunking_smart.c
 
 #Object files
 OBJS	= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
