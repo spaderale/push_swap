@@ -6,11 +6,11 @@
 /*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:37:35 by abroslav          #+#    #+#             */
-/*   Updated: 2025/07/09 19:10:14 by abroslav         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:45:45 by abroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap"
+#include "push_swap.h"
 
 //Convert str into long nbmr
 static long		convert_to_long(const char *str)
@@ -80,4 +80,39 @@ void		initialize_stack_a(t_sort_unit **stack_a, char **input_value)
 	}
 }
 
-//Find the 
+//Find the lowest push cost
+t_sort_unit		*get_cheapest_node(t_sort_unit *stack)
+{
+	if (!stack)
+		return (NULL);
+	while (stack)
+	{
+		if (stack->is_cheapest)
+			return (stack);
+		stack = stack->next;
+	}
+	return (NULL);
+}
+
+//Prepare the stack rotating until the node be on the top
+void	prepare_for_push(t_sort_unit **stack, t_sort_unit *top_node, char stack_name)
+{
+	while (*stack != top_node)
+	{
+		if (stack_name == 'a')
+		{
+			if (top_node->is_above_median)
+				ra(stack, false);
+			else
+				rra(stack, false);
+		}
+		else if (stack_name == 'b')
+		{
+			if (top_node->is_above_median)
+				rb(stack, false);
+			else
+				rrb(stack, false);
+		}
+
+	}
+}

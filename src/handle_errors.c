@@ -6,19 +6,18 @@
 /*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:06:36 by abroslav          #+#    #+#             */
-/*   Updated: 2025/07/09 18:09:55 by abroslav         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:36:49 by abroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.c"
+#include "push_swap.h"
 
 //Verify if its have only validate numbers and maybe one sign before (+/-)
-
 int		validate_number_format(char *strnbr)
 {
-	if (!(*strnbr == '+' || *strnbr == '-' || (*strnbr >= '0' || *strnbr <= '9')))
+	if (!(*strnbr == '+' || *strnbr == '-' || (*strnbr >= '0' && *strnbr <= '9')))
 		return (1);
-	if ((*strnbr == '+' || *strnbr == '-') && !(*strnbr[1] >= '0' || *strnbr[1] <= '9'))
+	if ((*strnbr == '+' || *strnbr == '-') && !(strnbr[1] >= '0' && strnbr[1] <= '9'))
 		return (1);
 	while (*++strnbr)
 	{
