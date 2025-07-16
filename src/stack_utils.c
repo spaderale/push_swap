@@ -12,99 +12,80 @@
 
 #include "push_swap.h"
 
-//Display for debug
-void	display_stack_content(t_sort_unit *stack)
+int	get_stack_size(t_stack *stack)
 {
-	while (stack) {
-		ft_printf("%d ", stack->value);
-		stack = stack->next;
-	}
-	ft_printf("\n");
+	return (stack->size);
 }
 
-//Check if a node is in the correct position in the sorted stack
-bool	node_in_sorted_position(t_sort_unit *stack, t_sort_unit *node)
+int	get_min_index_position(t_stack *stack)
 {
-	if (node->value < find_smallest_value(stack)->value || 
-		node->value > find_largest_value(stack)->value)
-		return (true);
-	return (false);
-}
+	t_node	*current;
+	int		min_index;
+	int		min_pos;
 
-//Calculate the current stack size
-int		stack_len(t_sort_unit *stack)
-{
-	int	count;
-
-	count = 0;
-	while (stack)
+	if (!stack->head)
+		return (-1);
+	current = stack->head;
+	min_index = INT_MAX;
+	min_pos = 0;
+	while (current)
 	{
-		stack = stack->next;
-		count++;
-	}
-	return (count);
-}
-
-//Find the last node
-t_sort_unit		*get_last_node(t_sort_unit *stack)
-{
-	if (!stack)
-		return (NULL);
-	while (stack->next)
-		stack = stack->next;
-	return (stack);
-}
-
-//Check if the stack is sorted
-bool	is_stack_sorted(t_sort_unit *stack)
-{
-	if (!stack)
-		return (true);
-	while (stack->next)
-	{
-		if (stack->value > stack->next->value)
-			return (false);
-		stack = stack->next;
-	}
-	return (true);
-}
-
-//Find the smallest value node
-t_sort_unit		*find_smallest_value(t_sort_unit *stack)
-{
-	long			min_value;
-	t_sort_unit		*min_node;
-
-	min_value = LONG_MAX;
-	min_node = NULL;
-	while (stack)
-	{
-		if (stack->value < min_value)
+		if (current->index < min_index)
 		{
-			min_value = stack->value;
-			min_node = stack;
+			min_index = current->index;
+			min_pos = current->position;
 		}
-		stack = stack->next;
+		current = current->next;
 	}
-	return (min_node);
+	return (min_pos);
 }
 
-t_sort_unit		*find_largest_value(t_sort_unit *stack)
+void	free_stack(t_stack *stack)
 {
-	long			max_value;
-	t_sort_unit		*max_node;
+	t_node	*current;
+	t_node	*next;
 
-	max_value = LONG_MIN;
-	max_node = NULL;
-
-	while (stack)
+	if (!stack)
+		return ;
+	current = stack->head;
+	while (current)
 	{
-		if (stack->value > max_value)
-		{
-			max_value = stack->value;
-			max_node = stack;
-		}
-		stack = stack->next;
+		next = current->next;
+		free(current);
+		current = next;
 	}
-	return (max_node);
+	free(stack);
+}
+
+int	get_max_index_position(t_stack *stack)
+{
+	t_node	*current;
+	int		max_index;
+	int		max_pos;
+
+	if (!stack->head)
+		return (-1);
+	current = stack->head;
+	max_index = -1;
+	max_pos = 0;
+	while (current)
+	{
+		if (current->index > max_index)
+		{
+			max_index = current->index;
+			max_pos = current->position;
+		}
+		current = current->next;
+	}
+	return (max_pos);
+}
+
+void	exit_eror(t_stack *stack_a, t_stack *stack_b)
+{
+	if (stack_a)
+		free_stack(stack_a);
+	if (stack_b)
+		free_stack(stack_b);
+	ft_printf("Error\n");
+	exit(1);
 }

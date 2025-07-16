@@ -1,58 +1,48 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 16:22:09 by abroslav          #+#    #+#             */
-/*   Updated: 2025/07/10 16:30:15 by abroslav         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
-static void	process_input(int argc, char **argv, t_sort_unit **stack_a)
+void	setup_stacks(t_stack **stack_a, t_stack **stack_b)
 {
-	char	**tokens;
-	int		i;
-
-	if (argc == 2)
+	if (!init_stack(stack_a) || !init_stack(stack_b))
 	{
-		tokens = split(argv[1], ' ');
-		if (!tokens)
-			handle_errors(stack_a);
-		initialize_stack_a(stack_a, tokens);
-		i = 0;
-		while (tokens[i]){
-			free(tokens[i]);
-			i++;
-		}
-		free(tokens);
+		write(2, "Error\n", 6);
+		exit(1);
 	}
-	else
-		initialize_stack_a(stack_a, argv + 1);
+}
+
+static void	do_sorting(t_stack *stack_a, t_stack *stack_b, int stack_size)
+{
+	if (!is_sorted(stack_a))
+	{
+		if (stack_size == 2)
+			sa(stack_a, 1);
+		else if (stack_size == 3)
+			sort_three(stack_a);
+		else
+			sort_large(stack_a, stack_b);
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	t_sort_unit		*stack_a;
-	t_sort_unit		*stack_b;
+	t_stack		*stack_a;
+	t_stack		*stack_b;
+	int			stack_size;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc == 1 || (argc == 2 && !argv[1][0]))
-		return (1);
-	process_input(argc, argv, &stack_a);
-	if (!is_stack_sorted(stack_a))
+	if (argc < 2)
+		return (0);
+	setup_stacks(&stack_a, &stack_b);
+	if (!parse_and_fill_stack(argc, argv, stack_a))
 	{
-		if (stack_len(stack_a) == 2)
-			sa(&stack_a, false);
-		else if (stack_len(stack_a) == 3)
-			sort_three(&stack_a);
-		else
-			sort_stacks(&stack_a, &stack_b);
+		free_stack(stack_a);
+		free_stack(stack_b);
+		write(2, "Error\n", 6);
+		return (1);
 	}
-	free_stack_memory(&stack_a);
+	stack_size = get_stack_size(stack_a);
+	assign_index(stack_a, stack_size);
+	if (!is_sorted(stack_a))
+		do_sorting(stack_a, stack_b, stack_size);
+	free_stack(stack_a);
+	free_stack(stack_b);
 	return (0);
 }

@@ -12,115 +12,86 @@
 
 #include "push_swap.h"
 
-//Convert str into long nbmr
-static long		convert_to_long(const char *str)
+int		init_stack(t_stack **stack)
 {
-	long	result;
-	int		sign;
-
-	result = 0;
-	sign = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
-	while (ft_isdigit(*str))
-		result = result * 10 + (*str++ - '0');
-	return (result * sign);
-}
-
-//Add new node to the end of the stack - Node memory allocate
-static void		add_node_to_stack(t_sort_unit **stack, int value)
-{
-	t_sort_unit		*new_node;
-	t_sort_unit		*last_node;
-
-	new_node = malloc(sizeof(t_sort_unit));
-	if (!new_node)
-		handle_errors(stack);
-	new_node->value = value;
-	new_node->next = NULL;
-	new_node->is_cheapest = false;
+	*stack = (t_stack *)malloc(sizeof(t_stack));
 	if (!*stack)
-	{
-		*stack = new_node;
-		new_node->prev = NULL;
-	}
-	else
-	{
-		last_node = get_last_node(*stack);
-		last_node->next = new_node;
-		new_node->prev = last_node;
-	}
+		return (0);
+	(*stack)->head = NULL;
+	(*stack)->size = 0;
+	return (1);
 }
 
-//Initialize stack A - validate syntax and duplicates
-//Change str to nbr e add node to the stack
-void		initialize_stack_a(t_sort_unit **stack_a, char **input_value)
+int	has_duplicate(t_stack *stack, int num)
 {
-	long	converted_value;
-	int		i;
+	t_node	*current;
 
-	i = 0;
-	while(input_value[i])
+	current = stack->head;
+	while (current)
 	{
-		if (validate_number_format(input_value[i]))
-			handle_errors(stack_a);
-		converted_value = convert_to_long(input_value[i]);
-		if (converted_value < INT_MIN || converted_value > INT_MAX)
-			handle_errors(stack_a);
-		if (check_duplicate_number(*stack_a, (int)converted_value))
-			handle_errors(stack_a);
-		add_node_to_stack(stack_a, (int)converted_value);
+		if (current->value == num)
+			return (1);
+		current = current->next;
+	}
+	return (0);
+}
+
+int	add_to_stack(t_stack *stack, int value)
+{
+	t_node	*new_node;
+
+	new_node = create_node(value);
+	if (!new_node)
+		return (0);
+	add_node_bottom(stack, new_node);
+	return (1);
+}
+
+int	parse_args(int argc, char **argv, t_stack *stack_a)
+{
+	int		i;
+	long	num;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (!is_number(argv[i]))
+			return (0);
+		num = atol(argv[i]);
+		if (num > INT_MAX || num < INT_MIN)
+			return (0);
+		if (has_duplicate(stack_a, (int)num))
+			return (0);
+		if (!add_to_stack(stack_a, (int)num))
+			return (0);
 		i++;
 	}
+	return (1);
 }
 
-//Find the lowest push cost
-t_sort_unit		*get_cheapest_node(t_sort_unit *stack)
+void	assign_index(t_stack *stack_a, int stack_size)
 {
-	if (!stack)
-		return (NULL);
-	while (stack)
+	t_node	*current;
+	t_node	*highest;
+	int		value;
+	int		i;
+
+	i = stack_size;
+	while (--i >= 0)
 	{
-		if (stack->is_cheapest)
-			return (stack);
-		stack = stack->next;
-	}
-	return (NULL);
-}
-
-//Prepare the stack rotating until the node be on the top
-void	prepare_for_push(t_sort_unit **stack, t_sort_unit *top_node, char stack_name)
-{
-	while (*stack != top_node)
-	{
-		if (stack_name == 'a')
+		current = stack_a->head;
+		value = INT_MIN;
+		highest = NULL;
+		while (current)
 		{
-			if (top_node->is_above_median)
-				ra(stack, false);
-			else
-				rra(stack, false);
+			if (current->value > value && current->index == 0)
+			{
+				value = current->value;
+				highest = current;
+			}
+			current = current->next;
 		}
-		else if (stack_name == 'b')
-		{
-			if (top_node->is_above_median)
-				rb(stack, false);
-			else
-				rrb(stack, false);
-		}
-
+		if (highest)
+			highest->index = i;
 	}
-}
-
-void	min_to_top(t_sort_unit **a)
-{
-	t_sort_unit	*min_node;
-
-	min_node = find_smallest_value(*a);
-	prepare_for_push(a, min_node, 'a');
 }

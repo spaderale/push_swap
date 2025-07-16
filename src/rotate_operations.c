@@ -12,39 +12,42 @@
 
 #include "push_swap.h"
 
-static void		perform_rotation(t_sort_unit **stack)
+static void	rotate(t_stack *stack)
 {
-	t_sort_unit		*last_node;
+	t_node	*first;
+	t_node	*last;
 
-	if (!*stack || !(*stack)->next)
+	if (stack->size < 2)
 		return ;
-
-	last_node = get_last_node(*stack);
-	last_node->next = *stack;
-	*stack = (*stack)->next;
-	(*stack)->prev = NULL;
-	last_node->next->prev = last_node;
-	last_node->next->next = NULL;
+	first = stack->head;
+	last = first;
+	while (last->next)
+		last = last->next;
+	stack->head = first->next;
+	stack->head->prev = NULL;
+	first->next = NULL;
+	first->prev = last;
+	last->next = first;
 }
 
-void	ra(t_sort_unit **a, bool print)
+void	ra(t_stack *stack_a, int print)
 {
-	perform_rotation(a);
-	if (!print)
+	rotate(stack_a);
+	if (print)
 		ft_printf("ra\n");
 }
 
-void	rb(t_sort_unit **b, bool print)
+void	rb(t_stack *stack_b, int print)
 {
-	perform_rotation(b);
-	if (!print)
+	rotate(stack_b);
+	if (print)
 		ft_printf("rb\n");
 }
 
-void	rr(t_sort_unit **a, t_sort_unit **b, bool print)
+void	rr(t_stack *stack_a, t_stack *stack_b, int print)
 {
-	perform_rotation(a);
-	perform_rotation(b);
-	if (!print)
+	rotate(stack_a);
+	rotate(stack_b);
+	if (print)
 		ft_printf("rr\n");
 }

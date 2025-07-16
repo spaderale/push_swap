@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abroslav <abroslav@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:06:36 by abroslav          #+#    #+#             */
 /*   Updated: 2025/07/10 16:36:49 by abroslav         ###   ########.fr       */
@@ -12,57 +12,64 @@
 
 #include "push_swap.h"
 
-//Verify if its have only validate numbers and maybe one sign before (+/-)
-int		validate_number_format(char *strnbr)
+int		is_valid_int(const char *str)
 {
-	if (!(*strnbr == '+' || *strnbr == '-' || (*strnbr >= '0' && *strnbr <= '9')))
-		return (1);
-	if ((*strnbr == '+' || *strnbr == '-') && !(strnbr[1] >= '0' && strnbr[1] <= '9'))
-		return (1);
-	while (*++strnbr)
-	{
-		if (!(*strnbr >= '0' && *strnbr <= '9'))
-			return (1);
-	}
-	return (0);
-}
+	long	num;
+	int		i;
 
-//Verify if already exists a duplicate number at the stack
-int		check_duplicate_number(t_sort_unit *stack, int num)
-{
-	if (!stack)
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
 		return (0);
-	while (stack)
+	num = 0;
+	while (str[i])
 	{
-		if (stack->value == num)
-			return (1);
-		stack = stack->next;
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		num = num * 10 + (str[i] - '0');
+		if ((str[0] != '-' && num > INT_MAX) || (str[0] == '-' && num > ((long)INT_MAX + 1)))
+				return (0);
+		i++;
 	}
-	return (0);
+	return (1);
 }
 
-//Free all memory allocated
-void	free_stack_memory(t_sort_unit **stack)
+void	free_split_result(char **result, int count)
 {
-	t_sort_unit		*temp;
-	t_sort_unit		*current;
+	int	i;
 
-	if(!stack)
+	if (!result)
 		return ;
-	current = *stack;
-	while (current)
-	{
-		temp = current->next;
-		current->value = 0;
-		free(current);
-		current = temp;
-	}
-	*stack = NULL;
+	i = 0;
+	while (i < count)
+		free(result[i++]);
+	free(result);
 }
 
-void	handle_errors(t_sort_unit **stack)
+char	**split_string(const char *str, const char *delim, int *count)
 {
-	free_stack_memory(stack);
-	ft_printf("Error\n");
-	exit(1);
+	char	*s;
+	char	*token;
+	char	**result;
+	int		spaces;
+
+	if (!count || !init_split(str, delim, &s, &result))
+		return (NULL);
+	spaces = 0;
+	token = strtok(s, delim);
+	while (token)
+	{
+		while (*token && *token == ' ')
+			token++;
+		if (!token)
+			break ;
+		result = add_token_to_result(result, token, &spaces);
+		if (!result)
+			return (handle_split_error(s, result, spaces));
+		token = strtok(NULL, delim);
+	}
+	*count = spaces;
+	free(s);
+	return (result);
 }

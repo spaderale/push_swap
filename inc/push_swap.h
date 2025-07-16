@@ -13,75 +13,84 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <stdbool.h>
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <string.h>
 # include "libft.h"
 
-typedef struct	s_sort_unit {
-	int						value;
-	int						current_index;
-	int						push_cost;
-	bool					is_above_median;
-	bool					is_cheapest;
-	struct s_sort_unit		*target_node;
-	struct s_sort_unit		*next;
-	struct s_sort_unit		*prev;
-} t_sort_unit;
+typedef struct s_node
+{
+	int				value;
+	int				index;
+	int				position;
+	int				target_pos;
+	int				cost_a;
+	int				cost_b;
+	struct s_node	*next;
+	struct s_node	*prev;
+}	t_node;
+
+typedef struct s_stack
+{
+	t_node	*head;
+	int		size;
+}	t_stack;
+
+int			init_stack(t_stack **stack);
+int			parse_args(int argc, char **argv, t_stack *stack_a);
+void		assign_index(t_stack *stack_a, int stack_size);
 
 //Stack operations
-void		sa(t_sort_unit **a, bool print);
-void		sb(t_sort_unit **b, bool print);
-void		ss(t_sort_unit **a, t_sort_unit **b, bool print);
-void		pa(t_sort_unit **a, t_sort_unit **b, bool print);
-void		pb(t_sort_unit **b, t_sort_unit **a, bool print);
-void		ra(t_sort_unit **a, bool print);
-void		rb(t_sort_unit **b, bool print);
-void		rr(t_sort_unit **a, t_sort_unit **b, bool print);
-void		rra(t_sort_unit **a, bool print);
-void		rrb(t_sort_unit **b, bool print);
-void		rrr(t_sort_unit **a, t_sort_unit **b, bool print);
+void		sa(t_stack *stack_a, int print);
+void		sb(t_stack *stack_b, int print);
+void		ss(t_stack *stack_a, t_stack *stack_b, int print);
+void		pa(t_stack *stack_a, t_stack *stack_b, int print);
+void		pb(t_stack *stack_a, t_stack *stack_b, int print);
+void		ra(t_stack *stack_a, int print);
+void		rb(t_stack *stack_b, int print);
+void		rr(t_stack *stack_a, t_stack *stack_b, int print);
+void		rra(t_stack *stack_a, int print);
+void		rrb(t_stack *stack_b, int print);
+void		rrr(t_stack *stack_a, t_stack *stack_b, int print);
+void		reverse_rotate(t_stack *stack);
 
-//Stack utils
-void			display_stack_content(t_sort_unit *stack);
-int				stack_len(t_sort_unit *stack);
-bool			is_stack_sorted(t_sort_unit *stack);
-void			update_node(t_sort_unit *stack);
-t_sort_unit		*get_last_node(t_sort_unit *stack);
-t_sort_unit		*find_smallest_value(t_sort_unit *stack);
-t_sort_unit		*find_largest_value(t_sort_unit *stack);
+t_node		*create_node(int value);
+void		add_node_bottom(t_stack *stack, t_node *new_node);
+void		add_node_top(t_stack *stack, t_node *new_node);
+t_node		*pop_node_top(t_stack *stack);
+int			is_sorted(t_stack *stack);
+void		free_stack(t_stack *stack);
+int			get_stack_size(t_stack *stack);
+int			get_min_index_position(t_stack *stack);
+int			get_max_index_position(t_stack *stack);
+int			abs(int n);
 
-//Stack init
-void			initialize_stack_a(t_sort_unit **stack_a, char **input_value);
-void	prepare_for_push(t_sort_unit **stack, t_sort_unit *top_node, char stack_name);
-t_sort_unit		*get_cheapest_node(t_sort_unit *stack);
 
-//Move operations
-void		prepare_stack_a(t_sort_unit *stack_a, t_sort_unit *stack_b);
-void		prepare_stack_b(t_sort_unit *stack_a, t_sort_unit *stack_b);
-//void		move_a_to_b(t_sort_unit **a, t_sort_unit **b);
-//void		move_b_to_a(t_sort_unit **a, t_sort_unit **b);
+void		sort(t_stack *stack_a, t_stack *stack_b);
+void		sort_three(t_stack *stack_a);
+void		sort_large(t_stack *stack_a, t_stack *stack_b);
 
-//Sort algorithms
-void		sort_three(t_sort_unit **stack);
-void		sort_stacks(t_sort_unit **a, t_sort_unit **b);
 
-//Error handling
-int			validate_number_format(char *strnbr);
-int			check_duplicate_number(t_sort_unit *stack, int num);
-void		free_stack_memory(t_sort_unit **stack);
-void		handle_errors(t_sort_unit **stack);
+void		get_target_position(t_stack *stack_a, t_stack *stack_b);
+void		calculate_cost(t_stack *stack_a, t_stack *stack_b);
+void		execute_cheapest_move(t_stack *stack_a, t_stack *stack_b);
+void		get_positions(t_stack *stack);
 
-char		**split(char *str, char delimiter);
+void		exit_error(t_stack *stack_a, t_stack *stack_b);
+int			is_number(char *str);
+int			has_duplicate(t_stack *stack, int num);
 
-/*void		push_chunks_smart(t_sort_unit **a, t_sort_unit **b, int chunk_count);
-t_sort_unit	*find_closest_to_target(t_sort_unit *stack, int target);
-void		push_chunks_basic(t_sort_unit **a, t_sort_unit **b, int chunk_count);
-t_sort_unit	*find_node_in_range(t_sort_unit *stack, int min, int max)*/
+long		atol(const char *str);
 
-/* Protótipos das novas funções */
-void	optimize_push_to_b(t_sort_unit **a, t_sort_unit **b);
-void	optimize_final_sort(t_sort_unit **a, t_sort_unit **b);
-void	min_to_top(t_sort_unit **a);
+int			is_valid_int(const char *str);
+void		free_split_result(char **result, int count);
+char		**split_string(const char *str, const char *delim, int *count);
+
+int			parse_and_fill_stack(int argc, char **argv, t_stack *stack_a);
+char		**handle_split_error(char *s, char **result, int spaces);
+char		**add_token_to_result(char **result, char *token, int *spaces);
+int			init_split(const char *str, const char *delim,
+						char **s, char ***result);
+
 #endif

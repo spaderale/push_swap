@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abroslav <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: abroslav <broslav@student.42porto.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 16:05:45 by abroslav          #+#    #+#              #
 #    Updated: 2025/07/10 16:32:56 by abroslav         ###   ########.fr        #
@@ -22,19 +22,21 @@ OBJ_DIR	=	obj
 
 #Source files
 SRCS	=	main.c \
-			sort_three.c \
-			rotate_operations.c \
-			reverse_rotation.c \
-			swap_operations.c \
-			push_operations.c \
-			stack_utils.c \
 			handle_errors.c \
-			stack_init.c \
-			move_a_to_b.c \
-			move_b_to_a.c \
-			sort_stacks.c \
+			input_check.c \
+			large_sort.c \
+			node_operations.c \
+			parse_elements.c \
+			push_cost_1.c \
+			push_cost_2.c \
+			push_operations.c \
+			reverse_rotation.c \
+			rotate_operations.c \
+			small_sort.c \
 			split.c \
-			chunking_smart.c
+			stack_init.c \
+			stack_utils.c \
+			swap_operations.c
 
 #Object files
 OBJS	= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))

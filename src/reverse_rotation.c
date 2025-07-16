@@ -12,40 +12,42 @@
 
 #include "push_swap.h"
 
-
-//Last element go to the top
-static void		reverse_rotate(t_sort_unit **stack)
+void	reverse_rotate(t_stack *stack)
 {
-	t_sort_unit		*last_node;
-	if (!*stack || !(*stack)->next)
-		return ;
+	t_node	*first;
+	t_node	*last;
 
-	last_node = get_last_node(*stack);
-	last_node->prev->next = NULL;
-	last_node->next = *stack;
-	last_node->prev = NULL;
-	*stack = last_node;
-	last_node->next->prev = last_node;
+	if (stack->size < 2)
+		return ;
+	first = stack->head;
+	last = first;
+	while (last->next)
+		last = last->next;
+	last->prev->next = NULL;
+	last->prev = NULL;
+	last->next = first;
+	first->prev = last;
+	stack->head = last;
 }
 
-void	rra(t_sort_unit **a, bool print)
+void	rra(t_stack *stack_a, int print)
 {
-	reverse_rotate(a);
-	if (!print)
+	reverse_rotate(stack_a);
+	if (print)
 		ft_printf("rra\n");
 }
 
-void	rrb(t_sort_unit **b, bool print)
+void	rrb(t_stack *stack_b, int print)
 {
-	reverse_rotate(b);
-	if (!print)
+	reverse_rotate(stack_b);
+	if (print)
 		ft_printf("rrb\n");
 }
 
-void	rrr(t_sort_unit **a, t_sort_unit **b, bool print)
+void	rrr(t_stack *stack_a, t_stack *stack_b, int print)
 {
-	reverse_rotate(a);
-	reverse_rotate(b);
-	if (!print)
+	reverse_rotate(stack_a);
+	reverse_rotate(stack_b);
+	if (print)
 		ft_printf("rrr\n");
 }
