@@ -85,12 +85,12 @@ long		atol(const char *str);
 
 int			is_valid_int(const char *str);
 void		free_split_result(char **result, int count);
-char		**split_string(const char *str, const char *delim, int *count);
+//char		**split_string(const char *str, const char *delim, int *count);
+char	**split_string(const char *str, const char *delim, int *count);
 
 int			parse_and_fill_stack(int argc, char **argv, t_stack *stack_a);
-char		**handle_split_error(char *s, char **result, int spaces);
+char	**handle_split_error(char **result, int count);
 char		**add_token_to_result(char **result, char *token, int *spaces);
-int			init_split(const char *str, const char *delim,
-						char **s, char ***result);
+int			init_split(const char *str, const char *delim, char **s, char ***result);
 
 #endif

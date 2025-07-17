@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   push_operations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abroslav <abroslav@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:24:22 by abroslav          #+#    #+#             */
 /*   Updated: 2025/07/09 18:26:28 by abroslav         ###   ########.fr       */

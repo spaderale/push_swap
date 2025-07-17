@@ -47,29 +47,4 @@ void	free_split_result(char **result, int count)
 	free(result);
 }
 
-char	**split_string(const char *str, const char *delim, int *count)
-{
-	char	*s;
-	char	*token;
-	char	**result;
-	int		spaces;
 
-	if (!count || !init_split(str, delim, &s, &result))
-		return (NULL);
-	spaces = 0;
-	token = strtok(s, delim);
-	while (token)
-	{
-		while (*token && *token == ' ')
-			token++;
-		if (!token)
-			break ;
-		result = add_token_to_result(result, token, &spaces);
-		if (!result)
-			return (handle_split_error(s, result, spaces));
-		token = strtok(NULL, delim);
-	}
-	*count = spaces;
-	free(s);
-	return (result);
-}

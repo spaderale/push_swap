@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_rotation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abroslav <abroslav@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:26:46 by abroslav          #+#    #+#             */
 /*   Updated: 2025/07/09 18:28:11 by abroslav         ###   ########.fr       */

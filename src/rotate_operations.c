@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   rotate_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abroslav <abroslav@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:28:25 by abroslav          #+#    #+#             */
 /*   Updated: 2025/07/09 18:29:31 by abroslav         ###   ########.fr       */

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   stack_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abroslav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abroslav <abroslav@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:37:35 by abroslav          #+#    #+#             */
 /*   Updated: 2025/07/10 16:45:45 by abroslav         ###   ########.fr       */
