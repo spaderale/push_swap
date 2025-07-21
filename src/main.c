@@ -9,8 +9,10 @@
 /*   Updated: 2025/07/10 16:45:45 by abroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "push_swap.h"
 
+//Prepares memory and structure for both stacks before any parsing or operat.
 void	setup_stacks(t_stack **stack_a, t_stack **stack_b)
 {
 	if (!init_stack(stack_a) || !init_stack(stack_b))
@@ -41,26 +43,11 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	
-	// Aloca memória para as stacks
-	stack_a = (t_stack *)malloc(sizeof(t_stack));
-	stack_b = (t_stack *)malloc(sizeof(t_stack));
-	if (!stack_a || !stack_b)
-	{
-		ft_printf("Error\n");
-		return (1);
-	}
-
-	// Inicializa as stacks
 	if (!init_stack(&stack_a) || !init_stack(&stack_b))
 	{
-		free(stack_a);
-		free(stack_b);
 		ft_printf("Error\n");
 		return (1);
 	}
-
-	// Parseia os argumentos e preenche stack_a
 	if (!parse_and_fill_stack(argc, argv, stack_a))
 	{
 		free_stack(stack_a);
@@ -69,14 +56,11 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	// Ordenação
 	stack_size = get_stack_size(stack_a);
-	assign_index(stack_a, stack_size);
-	
+	assign_index(stack_a);
 	if (!is_sorted(stack_a))
 		do_sorting(stack_a, stack_b, stack_size);
 
-	// Liberação de memória
 	free_stack(stack_a);
 	free_stack(stack_b);
 	return (0);

@@ -10,60 +10,72 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	push_swap
-CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
-LIBFT	=	libft/libft.a
-INCLUDES	=	-I inc -I libft/inc
+NAME = push_swap
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-#Directory structure
-SRC_DIR	=	src
-OBJ_DIR	=	obj
+# Diretórios
+SRC_DIR = src
+OBJ_DIR = obj
+INC_DIR = inc
+LIBFT_DIR = libft
 
-#Source files
-SRCS	=	main.c \
-			handle_errors.c \
-			input_check.c \
-			large_sort.c \
-			node_operations.c \
-			parse_elements.c \
-			push_cost_1.c \
-			push_cost_2.c \
-			push_operations.c \
-			reverse_rotation.c \
-			rotate_operations.c \
-			small_sort.c \
-			split.c \
-			stack_init.c \
-			stack_utils.c \
-			swap_operations.c
+# Biblioteca estática da libft
+LIBFT_A = $(LIBFT_DIR)/libft.a
 
-#Object files
-OBJS	= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
+# Fontes e objetos (sem wildcard)
+SRCS    =   $(SRC_DIR)/main.c \
+            $(SRC_DIR)/handle_errors.c \
+            $(SRC_DIR)/input_check.c \
+            $(SRC_DIR)/large_sort.c \
+            $(SRC_DIR)/node_operations.c \
+            $(SRC_DIR)/parse_elements.c \
+            $(SRC_DIR)/push_cost_1.c \
+            $(SRC_DIR)/push_cost_2.c \
+            $(SRC_DIR)/push_operations.c \
+            $(SRC_DIR)/reverse_rotation.c \
+            $(SRC_DIR)/rotate_operations.c \
+            $(SRC_DIR)/small_sort.c \
+            $(SRC_DIR)/split.c \
+            $(SRC_DIR)/stack_init.c \
+            $(SRC_DIR)/stack_utils.c \
+            $(SRC_DIR)/swap_operations.c
 
-#Rules
-all:	$(NAME)
+OBJS	=	$(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-$(NAME):	$(LIBFT) $(OBJS)
-			@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+# Includes
+INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)/inc
 
-$(LIBFT):
-			@make -C libft
+# Regra padrão
+all: $(NAME)
 
+# Regra para libft (compila só se não existir)
+$(LIBFT_A):
+	$(MAKE) -C $(LIBFT_DIR)
+
+# Compilar objetos, criando obj/ se necessário
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-			@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR):
-			@mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)
 
+# Linkar executável com libft
+$(NAME): $(LIBFT_A) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -o $(NAME)
+
+# Limpar arquivos objeto e diretório obj
 clean:
-		@rm -rf $(OBJ_DIR)
-		@make clean -C libft
+	$(MAKE) -C $(LIBFT_DIR) clean
+	rm -rf $(OBJ_DIR)
 
+# Limpar tudo, incluindo executável e libft
 fclean: clean
-		@rm -f $(NAME)
-		@make fclean -C libft
+	$(MAKE) -C $(LIBFT_DIR) fclean
+	rm -f $(NAME)
 
-re:		fclean all
+# Recompilar tudo
+re: fclean all
 
-.PHONY:	all clean fclean re bonus
+.PHONY: all clean fclean re
+

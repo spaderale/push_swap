@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+//Allocate memory for stack struct
 int		init_stack(t_stack **stack)
 {
 	*stack = (t_stack *)malloc(sizeof(t_stack));
@@ -22,20 +23,25 @@ int		init_stack(t_stack **stack)
 	return (1);
 }
 
-int	has_duplicate(t_stack *stack, int num)
+t_node	*create_node(int value)
 {
-	t_node	*current;
+	t_node	*new_node;
 
-	current = stack->head;
-	while (current)
-	{
-		if (current->value == num)
-			return (1);
-		current = current->next;
-	}
-	return (0);
+	new_node = (t_node *)malloc(sizeof(t_node));
+	if (!new_node)
+		return (NULL);
+	new_node->value = value;
+	new_node->index = 0;
+	new_node->position = -1;
+	new_node->target_pos = -1;
+	new_node->cost_a = -1;
+	new_node->cost_b = -1;
+	new_node->next = NULL;
+	new_node->prev = NULL;
+	return (new_node);
 }
 
+//Create a node and add the new node to the bottom
 int	add_to_stack(t_stack *stack, int value)
 {
 	t_node	*new_node;
@@ -45,53 +51,4 @@ int	add_to_stack(t_stack *stack, int value)
 		return (0);
 	add_node_bottom(stack, new_node);
 	return (1);
-}
-
-int	parse_args(int argc, char **argv, t_stack *stack_a)
-{
-	int		i;
-	long	num;
-
-	i = 1;
-	while (i < argc)
-	{
-		if (!is_number(argv[i]))
-			return (0);
-		num = atol(argv[i]);
-		if (num > INT_MAX || num < INT_MIN)
-			return (0);
-		if (has_duplicate(stack_a, (int)num))
-			return (0);
-		if (!add_to_stack(stack_a, (int)num))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	assign_index(t_stack *stack_a, int stack_size)
-{
-	t_node	*current;
-	t_node	*highest;
-	int		value;
-	int		i;
-
-	i = stack_size;
-	while (--i >= 0)
-	{
-		current = stack_a->head;
-		value = INT_MIN;
-		highest = NULL;
-		while (current)
-		{
-			if (current->value > value && current->index == 0)
-			{
-				value = current->value;
-				highest = current;
-			}
-			current = current->next;
-		}
-		if (highest)
-			highest->index = i;
-	}
 }

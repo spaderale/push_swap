@@ -12,6 +12,31 @@
 
 #include "push_swap.h"
 
+//Prevents invalid or overflowing valuew from being processed or pushed
+int		is_valid_int(const char *str)
+{
+	long	num;
+	int		i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (0);
+	num = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		num = num * 10 + (str[i] - '0');
+		if ((str[0] != '-' && num > INT_MAX) || (str[0] == '-' && num > ((long)INT_MAX + 1)))
+				return (0);
+		i++;
+	}
+	return (1);
+}
+
+//Catch no-numeric inputs before attempting conversion
 int	is_number(char *str)
 {
 	int	i;
@@ -32,50 +57,16 @@ int	is_number(char *str)
 	return (digit_found);
 }
 
-static long	check_overflow(long result, char digit, int sign)
+int	has_duplicate(t_stack *stack, int num)
 {
-	if (result > LONG_MAX / 10 || (result == LONG_MAX / 10 && digit - '0' > LONG_MAX % 10))
-	{
-		if (sign == 1)
-			return (LONG_MAX);
-		else
-			return (LONG_MIN);
-	}
-	return (result * 10 + (digit - '0'));
-}
+	t_node	*current;
 
-long	atol(const char *str)
-{
-	long	result;
-	int		sign;
-	int		i;
-	long	temp;
-
-	result = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	current = stack->head;
+	while (current)
 	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
+		if (current->value == num)
+			return (1);
+		current = current->next;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		temp = check_overflow(result, str[i], sign);
-		if (temp == LONG_MAX || temp == LONG_MIN)
-			return (temp);
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
-}
-
-int		abs(int n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
+	return (0);
 }

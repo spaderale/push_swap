@@ -12,24 +12,8 @@
 
 #include "push_swap.h"
 
-t_node	*create_node(int value)
-{
-	t_node	*new_node;
-
-	new_node = (t_node *)malloc(sizeof(t_node));
-	if (!new_node)
-		return (NULL);
-	new_node->value = value;
-	new_node->index = 0;
-	new_node->position = -1;
-	new_node->target_pos = -1;
-	new_node->cost_a = -1;
-	new_node->cost_b = -1;
-	new_node->next = NULL;
-	new_node->prev = NULL;
-	return (new_node);
-}
-
+//If the stack is empty the new_node becomes the head
+//Or look for the last node and links the new_node after it
 void	add_node_bottom(t_stack *stack, t_node *new_node)
 {
 	t_node	*last;
@@ -47,6 +31,8 @@ void	add_node_bottom(t_stack *stack, t_node *new_node)
 	stack->size++;
 }
 
+//If its empty the new_node becomes the head or link it before the current head
+//'pa' - 'pb' - where push a node to the top
 void	add_node_top(t_stack *stack, t_node *new_node)
 {
 	if (!stack->head)
@@ -60,6 +46,7 @@ void	add_node_top(t_stack *stack, t_node *new_node)
 	stack->size++;
 }
 
+//Remove and return the top node from the stack
 t_node	*pop_node_top(t_stack *stack)
 {
 	t_node	*top;
@@ -77,20 +64,4 @@ t_node	*pop_node_top(t_stack *stack)
 		stack->head = NULL;
 	stack->size--;
 	return (top);
-}
-
-int	is_sorted(t_stack *stack)
-{
-	t_node	*current;
-
-	if (!stack->head || !stack->head->next)
-		return (1);
-	current = stack->head;
-	while (current->next)
-	{
-		if (current->value > current->next->value)
-			return (0);
-		current = current->next;
-	}
-	return (1);
 }

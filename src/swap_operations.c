@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+//Adjust pointers so second becomes the new head
 static void	swap(t_stack *stack)
 {
 	t_node	*first;

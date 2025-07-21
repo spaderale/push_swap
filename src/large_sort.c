@@ -12,6 +12,9 @@
 
 #include "push_swap.h"
 
+//Rotates stack_a so the smallest element ends up
+//Finds the index pos. of the minimun value - ifits in the top half 'ra'
+//If its int the bottom half 'rra'
 static void	shift_stack(t_stack *stack_a)
 {
 	int	min_pos;
@@ -61,6 +64,9 @@ static void	push_all_but_three(t_stack *stack_a, t_stack *stack_b)
 		pb(stack_a, stack_b, 1);
 }
 
+//Pushes all but 3 highest values to stack_b and sort_three
+//while stack_b has elements - updates current and target pos.
+//Execute the better move to reinsert the element back at the stack_a
 void	sort_large(t_stack *stack_a, t_stack *stack_b)
 {
 	push_all_but_three(stack_a, stack_b);

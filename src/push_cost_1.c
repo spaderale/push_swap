@@ -12,6 +12,8 @@
 
 #include "push_swap.h"
 
+//Assigns an index-based pos. to each node at the stack
+//To compute how far a node is from the top so u knw the cheapest 'ra' r 'rra' 
 void	get_positions(t_stack *stack)
 {
 	t_node	*current;
@@ -27,62 +29,7 @@ void	get_positions(t_stack *stack)
 	}
 }
 
-static void	get_smallest_as_target(t_stack *stack_a, int *target_pos)
-{
-	t_node	*current;
-	int		smallest_index;
-	int		smallest_pos;
-
-	current = stack_a->head;
-	smallest_index = INT_MAX;
-	smallest_pos = 0;
-	while (current)
-	{
-		if (current->index < smallest_index)
-		{
-			smallest_index = current->index;
-			smallest_pos = current->position;
-		}
-		current = current->next;
-	}
-	*target_pos = smallest_pos;
-}
-
-static void	get_target_for_b(t_stack *stack_a, t_node *current_b, int *target_index, int *target_pos)
-{
-	t_node	*current_a;
-
-	current_a = stack_a->head;
-	while (current_a)
-	{
-		if (current_a->index > current_b->index && current_a->index < *target_index)
-		{
-			*target_index = current_a->index;
-			*target_pos = current_a->position;
-		}
-		current_a = current_a->next;
-	}
-	if (*target_index == INT_MAX)
-		get_smallest_as_target(stack_a, target_pos);
-}
-
-void	get_target_position(t_stack *stack_a, t_stack *stack_b)
-{
-	t_node	*current_b;
-	int		target_index;
-	int		target_pos;
-
-	current_b = stack_b->head;
-	while (current_b)
-	{
-		target_index = INT_MAX;
-		target_pos = 0;
-		get_target_for_b(stack_a, current_b, &target_index, &target_pos);
-		current_b->target_pos = target_pos;
-		current_b = current_b->next;
-	}
-}
-
+//Bring a node in B to top of A and its target pos in A to the top of stack
 void	calculate_cost(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*current_b;

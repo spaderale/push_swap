@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+//Validates and pushes an array os str nmbr into stack_a - ("5 4 3 2 1")
 static int	process_numbers(char **numbers, int count, t_stack *stack_a, int *has_numbers)
 {
 	int	i;
@@ -38,6 +39,30 @@ static int	process_numbers(char **numbers, int count, t_stack *stack_a, int *has
 	return (1);
 }
 
+//Iterates over argv checking if each arg is numeric and using atol to convert
+int	parse_args(int argc, char **argv, t_stack *stack_a)
+{
+	int		i;
+	long	num;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (!is_number(argv[i]))
+			return (0);
+		num = atol(argv[i]);
+		if (num > INT_MAX || num < INT_MIN)
+			return (0);
+		if (has_duplicate(stack_a, (int)num))
+			return (0);
+		if (!add_to_stack(stack_a, (int)num))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+//More robust parser that supports multiple nmbr per argum. ("3 2 1" 5)
 int	parse_and_fill_stack(int argc, char **argv, t_stack *stack_a)
 {
 	int		i;
@@ -51,7 +76,7 @@ int	parse_and_fill_stack(int argc, char **argv, t_stack *stack_a)
 	{
 		if (!argv[i][0])
 			return (0);
-		numbers = split_string(argv[i], " ", &count);
+		numbers = split_string(argv[i], &count);
 		if (!numbers || count == 0)
 			return (0);
 		if (!process_numbers(numbers, count, stack_a, &has_numbers))
@@ -61,47 +86,3 @@ int	parse_and_fill_stack(int argc, char **argv, t_stack *stack_a)
 	}
 	return (has_numbers);
 }
-
-/*static int	process_numbers(char **numbers, int count, t_stack *stack_a, int *has_numbers)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		if (!is_valid_int(numbers[i]) || has_duplicate(stack_a, atol(numbers[i])))
-		{
-			free_split_result(numbers, count);
-			return (0);
-		}
-		add_node_bottom(stack_a, create_node(atol(numbers[i])));
-		*has_numbers = 1;
-		i++;
-	}
-	return (1);
-}
-
-int	parse_and_fill_stack(int argc, char **argv, t_stack *stack_a)
-{
-	int		i;
-	int		count;
-	char	**numbers;
-	int		has_numbers;
-
-	i = 1;
-	has_numbers = 0;
-	while (i < argc)
-	{
-		if (!argv[i][0] || !is_number(argv[i]))
-			return (0);
-		numbers = split_string(argv[i], " ", &count);
-		if (!numbers || count == 0)
-			return (0);
-		if (!process_numbers(numbers, count, stack_a, &has_numbers))
-			return (0);
-		free_split_result(numbers, count);
-		i++;
-	}
-	return (has_numbers);
-}*/
-

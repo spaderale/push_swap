@@ -30,6 +30,9 @@ static int	get_highest(t_stack *stack)
 	return (highest);
 }
 
+//If the first node is the highest -> do 'ra'
+//If the sceonf is -> do 'rra'
+//After rotation, if the top two are still out of order -> do 'sa'
 void	sort_three(t_stack *stack_a)
 {
 	int		highest;

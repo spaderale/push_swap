@@ -90,17 +90,27 @@ char	**ft_split(char const *s, char c)
 {
 	size_t	words;
 	char	**word_value;
+	size_t	i;
 
 	if (!s)
 		return (NULL);
-	words = 0;
 	words = count_words(s, c);
 	word_value = malloc((words + 1) * sizeof(char *));
 	if (!word_value)
 		return (NULL);
 	word_value[words] = NULL;
 	if (fill_word(word_value, s, c))
+	{
+		i = 0;
+		while (i < words)
+		{
+			if (word_value[i])
+				free(word_value);
+			i++;
+		}
+		free(word_value);
 		return (NULL);
+	}
 	return (word_value);
 }
 

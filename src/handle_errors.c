@@ -12,39 +12,69 @@
 
 #include "push_swap.h"
 
-int		is_valid_int(const char *str)
-{
-	long	num;
-	int		i;
+//Prevents integers overflow when converting a string to a number
+//custom atol to safely grow the result number during parsing
 
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (!str[i])
-		return (0);
-	num = 0;
-	while (str[i])
+static long	check_overflow(long result, char digit, int sign)
+{
+	if (result > LONG_MAX / 10 || (result == LONG_MAX / 10 && digit - '0' > LONG_MAX % 10))
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-		num = num * 10 + (str[i] - '0');
-		if ((str[0] != '-' && num > INT_MAX) || (str[0] == '-' && num > ((long)INT_MAX + 1)))
-				return (0);
+		if (sign == 1)
+			return (LONG_MAX);
+		else
+			return (LONG_MIN);
+	}
+	return (result * 10 + (digit - '0'));
+}
+
+//Skips any space - Check for sign - convert numeric char to a long value
+
+long	atol(const char *str)
+{
+	long	result;
+	int		sign;
+	int		i;
+	long	temp;
+
+	result = 0;
+	sign = 1;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
 		i++;
 	}
-	return (1);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		temp = check_overflow(result, str[i], sign);
+		if (temp == LONG_MAX || temp == LONG_MIN)
+			return (temp);
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (result * sign);
 }
 
-void	free_split_result(char **result, int count)
+//Centralized function to free memory 
+void	exit_error(t_stack *stack_a, t_stack *stack_b)
 {
-	int	i;
-
-	if (!result)
-		return ;
-	i = 0;
-	while (i < count)
-		free(result[i++]);
-	free(result);
+	if (stack_a)
+		free_stack(stack_a);
+	if (stack_b)
+		free_stack(stack_b);
+	ft_printf("Error\n");
+	exit(1);
 }
 
 
+//Return the absolute avlue of an integer
+//Useful for cost calculations - cost_a & cost_b
+int		abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
