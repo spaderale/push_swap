@@ -13,7 +13,7 @@
 #include "push_swap.h"
 
 //Allocate memory for stack struct
-int		init_stack(t_stack **stack)
+int	init_stack(t_stack **stack)
 {
 	*stack = (t_stack *)malloc(sizeof(t_stack));
 	if (!*stack)

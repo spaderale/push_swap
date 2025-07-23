@@ -13,10 +13,11 @@
 #include "push_swap.h"
 
 //Validates and pushes an array os str nmbr into stack_a - ("5 4 3 2 1")
-static int	process_numbers(char **numbers, int count, t_stack *stack_a, int *has_numbers)
+static int	process_numbers(char **numbers, int count,
+		t_stack *stack_a, int *has_numbers)
 {
-	int	i;
-	long num;
+	int		i;
+	long	num;
 
 	i = 0;
 	while (i < count)

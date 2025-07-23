@@ -35,7 +35,7 @@ static void	do_sorting(t_stack *stack_a, t_stack *stack_b, int stack_size)
 	}
 }
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
@@ -55,13 +55,11 @@ int	main(int argc, char **argv)
 		ft_printf("Error\n");
 		return (1);
 	}
-
 	stack_size = get_stack_size(stack_a);
 	assign_index(stack_a);
 	if (!is_sorted(stack_a))
 		do_sorting(stack_a, stack_b, stack_size);
-
 	free_stack(stack_a);
 	free_stack(stack_b);
 	return (0);
-}
+}*/

@@ -17,7 +17,8 @@
 
 static long	check_overflow(long result, char digit, int sign)
 {
-	if (result > LONG_MAX / 10 || (result == LONG_MAX / 10 && digit - '0' > LONG_MAX % 10))
+	if (result > LONG_MAX / 10
+		|| (result == LONG_MAX / 10 && digit - '0' > LONG_MAX % 10))
 	{
 		if (sign == 1)
 			return (LONG_MAX);
@@ -69,10 +70,9 @@ void	exit_error(t_stack *stack_a, t_stack *stack_b)
 	exit(1);
 }
 
-
 //Return the absolute avlue of an integer
 //Useful for cost calculations - cost_a & cost_b
-int		abs(int n)
+int	abs(int n)
 {
 	if (n < 0)
 		return (-n);

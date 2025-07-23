@@ -13,7 +13,7 @@
 #include "push_swap.h"
 
 //Prevents invalid or overflowing valuew from being processed or pushed
-int		is_valid_int(const char *str)
+int	is_valid_int(const char *str)
 {
 	long	num;
 	int		i;
@@ -29,8 +29,9 @@ int		is_valid_int(const char *str)
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
 		num = num * 10 + (str[i] - '0');
-		if ((str[0] != '-' && num > INT_MAX) || (str[0] == '-' && num > ((long)INT_MAX + 1)))
-				return (0);
+		if ((str[0] != '-' && num > INT_MAX)
+			|| (str[0] == '-' && num > ((long)INT_MAX + 1)))
+			return (0);
 		i++;
 	}
 	return (1);

@@ -50,3 +50,63 @@ void	calculate_cost(t_stack *stack_a, t_stack *stack_b)
 		current_b = current_b->next;
 	}
 }
+
+void	do_remaining_rotations(t_stack *stack, int *cost, char stack_name)
+{
+	while (*cost > 0)
+	{
+		if (stack_name == 'a')
+			ra(stack, 1);
+		else if (stack_name == 'b')
+			rb(stack, 1);
+		(*cost)--;
+	}
+	while (*cost < 0)
+	{
+		if (stack_name == 'a')
+			rra(stack, 1);
+		else if (stack_name == 'b')
+			rrb(stack, 1);
+		(*cost)++;
+	}
+}
+
+t_node	*find_cheapest_node(t_stack *stack_b)
+{
+	t_node	*current;
+	t_node	*cheapest_node;
+	int		cheapest_total_cost;
+
+	current = stack_b->head;
+	cheapest_total_cost = INT_MAX;
+	cheapest_node = NULL;
+	while (current)
+	{
+		if (abs(current->cost_a) + abs(current->cost_b) < cheapest_total_cost)
+		{
+			cheapest_total_cost = abs(current->cost_a) + abs(current->cost_b);
+			cheapest_node = current;
+		}
+		current = current->next;
+	}
+	return (cheapest_node);
+}
+
+//If cost_a and cost_b are pos. use rr
+//if both are neg. use rrr
+void	do_combined_rotations(t_stack *stack_a, t_stack *stack_b,
+		int *cost_a, int *cost_b)
+{
+	while (*cost_a > 0 && *cost_b > 0)
+	{
+		rr(stack_a, stack_b, 1);
+		(*cost_a)--;
+		(*cost_b)--;
+	}
+	while (*cost_a < 0 && *cost_b < 0)
+	{
+		rrr(stack_a, stack_b, 1);
+		(*cost_a)++;
+		(*cost_b)++;
+	}
+}

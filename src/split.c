@@ -15,6 +15,7 @@
 void	free_split_result(char **tokens, int count)
 {
 	int	i;
+
 	if (!tokens)
 		return ;
 	i = 0;
@@ -28,7 +29,6 @@ void	free_split_result(char **tokens, int count)
 
 char	**add_token_to_result(char **tokens, char *new_token, int *count)
 {
-
 	char	**new_array;
 	int		i;
 
@@ -57,7 +57,7 @@ char	**add_token_to_result(char **tokens, char *new_token, int *count)
 char	**split_string(const char *str, int *count)
 {
 	char	**result;
-	int	i;
+	int		i;
 
 	if (!str || !*str)
 		return (NULL);
