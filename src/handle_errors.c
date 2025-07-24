@@ -66,7 +66,7 @@ void	exit_error(t_stack *stack_a, t_stack *stack_b)
 		free_stack(stack_a);
 	if (stack_b)
 		free_stack(stack_b);
-	ft_printf("Error\n");
+	write(2, "Error\n", 6);
 	exit(1);
 }
 

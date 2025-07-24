@@ -6,7 +6,7 @@
 #    By: abroslav <broslav@student.42porto.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 16:05:45 by abroslav          #+#    #+#              #
-#    Updated: 2025/07/10 16:32:56 by abroslav         ###   ########.fr        #
+#    Updated: 2025/07/24 16:51:20 by abroslav         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_DIR = libft
 # Biblioteca estática da libft
 LIBFT_A = $(LIBFT_DIR)/libft.a
 
-# Fontes e objetos (sem wildcard)
+# Fontes e objetos
 SRCS    =   $(SRC_DIR)/main.c \
             $(SRC_DIR)/handle_errors.c \
             $(SRC_DIR)/input_check.c \
@@ -39,43 +39,37 @@ SRCS    =   $(SRC_DIR)/main.c \
             $(SRC_DIR)/split.c \
             $(SRC_DIR)/stack_init.c \
             $(SRC_DIR)/stack_utils.c \
-            $(SRC_DIR)/swap_operations.c
+            $(SRC_DIR)/swap_operations.c \
+			$(SRC_DIR)/index_utils.c
 
 OBJS	=	$(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-# Includes
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)/inc
 
-# Regra padrão
+# Regras
 all: $(NAME)
 
-# Regra para libft (compila só se não existir)
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFT_DIR)
 
-# Compilar objetos, criando obj/ se necessário
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-# Linkar executável com libft
+#Name com LIBFT
 $(NAME): $(LIBFT_A) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -o $(NAME)
 
-# Limpar arquivos objeto e diretório obj
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	rm -rf $(OBJ_DIR)
 
-# Limpar tudo, incluindo executável e libft
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME)
 
-# Recompilar tudo
 re: fclean all
 
 .PHONY: all clean fclean re
-

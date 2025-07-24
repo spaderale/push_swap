@@ -6,7 +6,7 @@
 /*   By: abroslav <abroslav@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:37:35 by abroslav          #+#    #+#             */
-/*   Updated: 2025/07/10 16:45:45 by abroslav         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:51:53 by abroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	setup_stacks(t_stack **stack_a, t_stack **stack_b)
 {
 	if (!init_stack(stack_a) || !init_stack(stack_b))
 	{
-		ft_printf("Error\n");
+		write(2, "Error\n", 6);
 		exit(1);
 	}
 }
@@ -35,7 +35,7 @@ static void	do_sorting(t_stack *stack_a, t_stack *stack_b, int stack_size)
 	}
 }
 
-/*int	main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
@@ -45,14 +45,14 @@ static void	do_sorting(t_stack *stack_a, t_stack *stack_b, int stack_size)
 		return (0);
 	if (!init_stack(&stack_a) || !init_stack(&stack_b))
 	{
-		ft_printf("Error\n");
+		write(2, "Error\n", 6);
 		return (1);
 	}
 	if (!parse_and_fill_stack(argc, argv, stack_a))
 	{
 		free_stack(stack_a);
 		free_stack(stack_b);
-		ft_printf("Error\n");
+		write(2, "Error\n", 6);
 		return (1);
 	}
 	stack_size = get_stack_size(stack_a);
@@ -62,4 +62,4 @@ static void	do_sorting(t_stack *stack_a, t_stack *stack_b, int stack_size)
 	free_stack(stack_a);
 	free_stack(stack_b);
 	return (0);
-}*/
+}

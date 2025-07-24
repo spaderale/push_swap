@@ -6,7 +6,7 @@
 /*   By: abroslav <abroslav@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:37:35 by abroslav          #+#    #+#             */
-/*   Updated: 2025/07/24 14:30:02 by abroslav         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:52:25 by abroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	bubble_sort(int *arr, int size)
 	}
 }
 
-static int	*extract_value(t_stack *stack)
+static int	*extract_values(t_stack *stack)
 {
 	t_node	*current;
 	int		*values;
@@ -58,6 +58,9 @@ static int	*extract_value(t_stack *stack)
 	return (values);
 }
 
+//Assigns indices to nodes in descending order of their value
+//takes the nbr of elements and loop until 0 - scan all nodes
+//Bugger values get higher indices, small one get lower ind
 void	assign_index(t_stack *stack_a)
 {
 	t_node	*current;
@@ -68,4 +71,20 @@ void	assign_index(t_stack *stack_a)
 	if (!value)
 		return ;
 	bubble_sort(value, stack_a->size);
+	current = stack_a->head;
+	while (current)
+	{
+		i = 0;
+		while (i < stack_a->size)
+		{
+			if (value[i] == current->value)
+			{
+				current->index = i;
+				break ;
+			}
+			i++;
+		}
+		current = current->next;
+	}
+	free(value);
 }

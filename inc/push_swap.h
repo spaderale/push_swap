@@ -6,7 +6,7 @@
 /*   By: abroslav <abroslav@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:07:21 by abroslav          #+#    #+#             */
-/*   Updated: 2025/07/10 16:00:40 by abroslav         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:05:53 by abroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 //---------------STRUCTS---------------//
 
-typedef struct	s_node
+typedef struct s_node
 {
 	int				value;
 	int				index;
@@ -75,7 +75,7 @@ void	get_target_position(t_stack *stack_a, t_stack *stack_b);
 void	calculate_cost(t_stack *stack_a, t_stack *stack_b);
 void	execute_cheapest_move(t_stack *stack_a, t_stack *stack_b);
 t_node	*find_cheapest_node(t_stack *stack_b);
-void	do_combined_rotations(t_stack *stack_a, t_stack *stack_b, 
+void	do_combined_rotations(t_stack *stack_a, t_stack *stack_b,
 			int	*cost_a, int *cost_b);
 void	do_remaining_rotations(t_stack *stack, int *cost, char stack_name);
 
@@ -96,7 +96,7 @@ void	reverse_rotate(t_stack *stack);
 
 //-----------INPUT CHECK---------------------------//
 int		is_number(char *str);
-long	atol(const char  *str);
+long	atol(const char *str);
 int		is_valid_int(const char *str);
 
 //------------SPLIT UTILS------------------------//
@@ -104,10 +104,10 @@ char	**split_string(const char *str, int *count);
 void	free_split_result(char **tokens, int count);
 char	**handle_split_error(char **result, int count);
 char	**add_token_to_result(char **tokens, char *new_token, int *count);
-int		init_split(const char *str, const char *delim, char **s, char ***result);
+int		init_split(const char *str, const char *delim,
+			char **s, char ***result);
 
 //-----------ERROR HANDLING---------------------//
 void	exit_eror(t_stack *stack_a, t_stack *stack_b);
-
 
 #endif
