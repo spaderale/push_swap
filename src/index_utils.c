@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abroslav <abroslav@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/09 18:10:15 by abroslav          #+#    #+#             */
-/*   Updated: 2025/07/09 18:15:17 by abroslav         ###   ########.fr       */
+/*   Created: 2025/07/09 18:37:35 by abroslav          #+#    #+#             */
+/*   Updated: 2025/07/24 14:30:02 by abroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,28 @@ static void	bubble_sort(int *arr, int size)
 	}
 }
 
-static int    *extract_values(t_stack *stack)
+static int	*extract_value(t_stack *stack)
 {
-    t_node	*current;
-    int		*values;
-    int		i;
+	t_node	*current;
+	int		*values;
+	int		i;
 
-    if (!stack || stack->size == 0)
-        return (NULL);
-    values = malloc(sizeof(int) * stack->size);
-    if (!values)
-        return (NULL);
-    current = stack->head;
-    i = 0;
-    while (current)
-    {
-        values[i] = current->value;
-        current = current->next;
-        i++;
-    }
-    return (values);
+	if (!stack || stack->size == 0)
+		return (NULL);
+	values = malloc(sizeof(int) * stack->size);
+	if (!values)
+		return (NULL);
+	current = stack->head;
+	i = 0;
+	while (current)
+	{
+		values[i] = current->value;
+		current = current->next;
+		i++;
+	}
+	return (values);
 }
 
-//Assigns indices to nodes in descending order of their value
-//takes the nbr of elements and loop until 0 - scan all nodes
-//Bigger values get higher indices, small one get lower
 void	assign_index(t_stack *stack_a)
 {
 	t_node	*current;
@@ -70,21 +67,5 @@ void	assign_index(t_stack *stack_a)
 	value = extract_values(stack_a);
 	if (!value)
 		return ;
-    bubble_sort(value, stack_a->size);
-    current = stack_a->head;
-	while (current)
-	{
-        i = 0;
-        while (i < stack_a->size)
-        {            
-            if (value[i] == current->value)
-            {
-                current->index = i;
-                break ;
-            }
-			i++;
-        }
-        current = current->next;
-	free(value);
+	bubble_sort(value, stack_a->size);
 }
-
