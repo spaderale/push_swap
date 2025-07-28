@@ -66,23 +66,6 @@ t_node	*pop_node_top(t_stack *stack)
 	return (top);
 }
 
-void	free_stack(t_stack *stack)
-{
-	t_node	*current;
-	t_node	*next;
-
-	if (!stack)
-		return ;
-	current = stack->head;
-	while (current)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-	free(stack);
-}
-
 int	get_stack_size(t_stack *stack)
 {
 	return (stack->size);

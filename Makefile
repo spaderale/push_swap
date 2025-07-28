@@ -25,21 +25,20 @@ LIBFT_A = $(LIBFT_DIR)/libft.a
 
 # Fontes e objetos
 SRCS    =   $(SRC_DIR)/main.c \
-            $(SRC_DIR)/handle_errors.c \
             $(SRC_DIR)/input_check.c \
             $(SRC_DIR)/large_sort.c \
             $(SRC_DIR)/node_operations.c \
             $(SRC_DIR)/parse_elements.c \
             $(SRC_DIR)/push_cost_1.c \
             $(SRC_DIR)/push_cost_2.c \
-            $(SRC_DIR)/push_operations.c \
-            $(SRC_DIR)/reverse_rotation.c \
-            $(SRC_DIR)/rotate_operations.c \
+            $(SRC_DIR)/push.c \
+            $(SRC_DIR)/reverse.c \
+            $(SRC_DIR)/rotate.c \
             $(SRC_DIR)/small_sort.c \
             $(SRC_DIR)/split.c \
             $(SRC_DIR)/stack_init.c \
             $(SRC_DIR)/stack_utils.c \
-            $(SRC_DIR)/swap_operations.c \
+            $(SRC_DIR)/swap.c \
 			$(SRC_DIR)/index_utils.c
 
 OBJS	=	$(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

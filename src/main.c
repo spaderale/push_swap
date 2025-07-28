@@ -13,13 +13,31 @@
 #include "push_swap.h"
 
 //Prepares memory and structure for both stacks before any parsing or operat.
-void	setup_stacks(t_stack **stack_a, t_stack **stack_b)
+static int	setup_stacks(t_stack **stack_a, t_stack **stack_b)
 {
 	if (!init_stack(stack_a) || !init_stack(stack_b))
 	{
 		write(2, "Error\n", 6);
-		exit(1);
+		return (0);
 	}
+	return (1);
+}
+
+static void	free_stack(t_stack *stack)
+{
+	t_node	*current;
+	t_node	*next;
+
+	if (!stack)
+		return ;
+	current = stack->head;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	free(stack);
 }
 
 static void	do_sorting(t_stack *stack_a, t_stack *stack_b, int stack_size)
@@ -43,11 +61,8 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	if (!init_stack(&stack_a) || !init_stack(&stack_b))
-	{
-		write(2, "Error\n", 6);
+	if (!setup_stacks(&stack_a, &stack_b))
 		return (1);
-	}
 	if (!parse_and_fill_stack(argc, argv, stack_a))
 	{
 		free_stack(stack_a);

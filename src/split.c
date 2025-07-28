@@ -27,7 +27,7 @@ void	free_split_result(char **tokens, int count)
 	free(tokens);
 }
 
-char	**add_token_to_result(char **tokens, char *new_token, int *count)
+/*char	**add_token_to_result(char **tokens, char *new_token, int *count)
 {
 	char	**new_array;
 	int		i;
@@ -52,7 +52,7 @@ char	**add_token_to_result(char **tokens, char *new_token, int *count)
 	free(tokens);
 	*count = *count + 1;
 	return (new_array);
-}
+}*/
 
 char	**split_string(const char *str, int *count)
 {

@@ -23,6 +23,7 @@ static void	bubble_sort(int *arr, int size)
 	{
 		j = 0;
 		while (j < size - i - 1)
+		
 		{
 			if (arr[j] > arr[j + 1])
 			{

@@ -37,7 +37,7 @@ int	get_min_index_position(t_stack *stack)
 	return (min_pos);
 }
 
-int	get_max_index_position(t_stack *stack)
+/*int	get_max_index_position(t_stack *stack)
 {
 	t_node	*current;
 	int		max_index;
@@ -58,7 +58,7 @@ int	get_max_index_position(t_stack *stack)
 		current = current->next;
 	}
 	return (max_pos);
-}
+}*/
 
 int	is_sorted(t_stack *stack)
 {
