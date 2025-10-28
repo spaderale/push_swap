@@ -27,33 +27,6 @@ void	free_split_result(char **tokens, int count)
 	free(tokens);
 }
 
-/*char	**add_token_to_result(char **tokens, char *new_token, int *count)
-{
-	char	**new_array;
-	int		i;
-
-	if (!tokens || !new_token || !count || *count < 0)
-		return (NULL);
-	new_array = malloc(sizeof(char *) * (*count + 1));
-	if (!new_array)
-		return (NULL);
-	i = 0;
-	while (i < *count)
-	{
-		new_array[i] = tokens[i];
-		i++;
-	}
-	new_array[*count] = ft_strdup(new_token);
-	if (!new_array[*count])
-	{
-		free(new_array);
-		return (NULL);
-	}
-	free(tokens);
-	*count = *count + 1;
-	return (new_array);
-}*/
-
 char	**split_string(const char *str, int *count)
 {
 	char	**result;

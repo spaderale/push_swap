@@ -37,27 +37,6 @@ int	is_valid_int(const char *str)
 	return (1);
 }
 
-/*Catch no-numeric inputs before attempting conversion
-int	is_number(char *str)
-{
-	int	i;
-	int	digit_found;
-
-	i = 0;
-	digit_found = 0;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-			digit_found = 1;
-		else
-			return (0);
-		i++;
-	}
-	return (digit_found);
-}*/
-
 int	has_duplicate(t_stack *stack, int num)
 {
 	t_node	*current;

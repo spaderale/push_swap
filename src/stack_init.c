@@ -52,5 +52,3 @@ int	add_to_stack(t_stack *stack, int value)
 	add_node_bottom(stack, new_node);
 	return (1);
 }
-
-

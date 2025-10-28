@@ -110,5 +110,3 @@ t_node	*find_cheapest_node(t_stack *stack_b)
 	}
 	return (cheapest_node);
 }
-
-

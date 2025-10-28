@@ -40,29 +40,6 @@ static int	process_numbers(char **numbers, int count,
 	return (1);
 }
 
-/*Iterates over argv checking if each arg is numeric and using atol to convert
-int	parse_args(int argc, char **argv, t_stack *stack_a)
-{
-	int		i;
-	long	num;
-
-	i = 1;
-	while (i < argc)
-	{
-		if (!is_number(argv[i]))
-			return (0);
-		num = atol(argv[i]);
-		if (num > INT_MAX || num < INT_MIN)
-			return (0);
-		if (has_duplicate(stack_a, (int)num))
-			return (0);
-		if (!add_to_stack(stack_a, (int)num))
-			return (0);
-		i++;
-	}
-	return (1);
-}*/
-
 //More robust parser that supports multiple nmbr per argum. ("3 2 1" 5)
 int	parse_and_fill_stack(int argc, char **argv, t_stack *stack_a)
 {
