@@ -1,90 +1,90 @@
-# push_swap
+# 📊 push_swap
 
-Projeto desenvolvido como parte do currículo da 42 Porto, focado em criar um algoritmo de ordenação altamente eficiente usando apenas operações permitidas e duas stacks (A e B). Este repositório implementa o método **Turkish Sorting Method (Turk Method)**, conhecido pela sua eficiência e flexibilidade para ordenar grandes listas com o menor número possível de movimentos.
-
----
-
-## ✨ Objetivo
-
-Receber uma lista de inteiros como entrada e gerar uma sequência otimizada de operações capazes de ordenar esses números em ordem crescente utilizando apenas as operações definidas pelo projeto.
-
-### **Operações permitidas**
-
-* `sa` : troca os dois primeiros elementos da stack A
-* `sb` : troca os dois primeiros elementos da stack B
-* `ss` : executa `sa` e `sb` simultaneamente
-* `pa` : move o primeiro elemento da stack B para A
-* `pb` : move o primeiro elemento da stack A para B
-* `ra` : rotate A — move o primeiro elemento para o final
-* `rb` : rotate B — move o primeiro elemento para o final
-* `rr` : `ra` e `rb` simultâneos
-* `rra`: reverse rotate A — último elemento vai para o topo
-* `rrb`: reverse rotate B — último elemento vai para o topo
-* `rrr`: `rra` e `rrb` simultâneos
+Project developed as part of the 42 Porto curriculum, focused on creating a highly efficient sorting algorithm using only the allowed operations and two stacks (A and B). This repository implements the Turkish Sorting Method (Turk Method), known for its efficiency and flexibility when sorting large lists with the smallest number of moves possible.
 
 ---
 
-## 🧠 Algoritmos Implementados
+## ✨ Objective
 
-### **1. Caso de 3 números**
+Receive a list of integers as input and generate an optimized sequence of operations capable of sorting those numbers in ascending order using only the operations defined by the project.
 
-* Ordenação direta com no máximo 2 movimentos.
-* Comparação simples dos valores.
+### **Allowed operations**
 
-### **2. Caso de 5 números**
-
-* Move os 2 menores para a stack B.
-* Ordena os 3 restantes em A.
-* Reinsere os menores na posição correta.
-
-### **3. Números maiores — Turk Method**
-
-✔ Usa indexação para padronizar os valores.
-
-✔ Empurra elementos para a stack B com base na posição ideal futura.
-
-✔ Calcula custos individuais para cada elemento:
-
-* rotacionar A
-* rotacionar B
-* combinação `rr`
-* combinação `rrr`
-
-✔ Escolhe sempre o elemento de **menor custo total** para ser reinserido.
-
-✔ Realiza a rotação mais curta (top ou bottom).
-
-**Não utiliza chunks** — o método é baseado **100% em custos e rotações combinadas**, garantindo máxima eficiência.
+* `sa` : swaps the first two elements of stack A
+* `sb` : swaps the first two elements of stack B
+* `ss` : performs `sa` and `sb` simultaneously
+* `pa` : moves the first element of stack B to A
+* `pb` : moves the first element of stack A to B
+* `ra` : rotate A — moves the first element to the end
+* `rb` : rotate B — moves the first element to the end
+* `rr` : `ra` and `rb` simultaneously
+* `rra`: reverse rotate A — last element goes to the top
+* `rrb`: reverse rotate B — last element goes to the top
+* `rrr`: `rra` and `rrb` simultaneously
 
 ---
 
-## 📊 Performance Estimada
 
-| Quantidade  | Operações Máximas | Algoritmo            |
+
+## 🧠 Implemented Algorithms
+
+### **1. Case of 3 numbers**
+
+* Direct sorting with at most 2 moves
+* Simple value comparison
+
+### **2. Case of 5 numbers**
+
+* Moves the 2 smallest numbers to stack B
+* Sorts the remaining 3 in A
+* Reinserts the smallest elements into the correct position.
+
+### **3. Larger sets — Turk Method**
+✔ Uses indexing to normalize values\
+✔ Pushes elements to stack B based on their ideal future position\
+✔ Calculates individual costs for each element:
+
+* rotate A
+* rotate B
+* combined `rr`
+* combined `rrr`
+
+
+✔ Always chooses the element with the lowest total cost to reinsert\
+✔ Performs the shortest rotation (top or bottom)
+**Does not use chunks** — the method is based **100% on costs and combined rotations**, ensuring maximum efficiency.
+
+
+---
+
+## 🎯 Estimated Performance
+
+| Quantity  | Max Operations | Algorithm            |
 | ----------- | ----------------- | -------------------- |
-| 3 números   | 2 ops             | Small Sort           |
-| 5 números   | ~12 ops           | Small Sort otimizado |
-| 100 números | ~620–750 ops      | Turk Method          |
-| 500 números | ~4500–5500 ops    | Turk Method          |
+| 3 numbers   | 2 ops             | Small Sort           |
+| 5 numbers   | ~12 ops           | Small Sort otimizado |
+| 100 numbers | ~620–750 ops      | Turk Method          |
+| 500 numbers | ~4500–5500 ops    | Turk Method          |
+
 
 ---
 
-## 🧪 Validação
+## 🧪 Validation
 
-O programa valida:
+The program validates:
 
-* ✔ Apenas números inteiros
-* ✔ Ausência de duplicados
-* ✔ Intervalo válido de 32 bits
-* ✔ Argumentos múltiplos ou string única
-* ✔ Stack já ordenada (retorna nada)
+*  Only integer values
+*  No duplicates
+*  Valid 32-bit range
+*  Multiple arguments or a single string
+*  Already-sorted stack (outputs nothing)
+
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
-.
 ├── inc/
 │   └── push_swap.h
 ├── libft/
@@ -104,38 +104,23 @@ O programa valida:
 │   ├── node_operations.c
 │   ├── index_utils.c
 │   ├── push.c
-│   ├── push_cost_1.c
-│   ├── push_cost_2.c
-│   ├── rotate.c
-│   ├── reverse.c
-│   ├── swap.c
-│   ├── small_sort.c
-│   └── large_sort.c
-├── Makefile
-├── obj/
-└── push_swap
+
 ```
 
 ---
 
-## 🚀 Como Compilar
-
+## 🚀 Example Execution
 ```
 make
-./push_swap 4 67 3 87 23
+
 ```
-
----
-
-## 📊 Exemplo de Execução
-
-Entrada:
+Input:
 
 ```
 ./push_swap 4 2 3 1
 ```
 
-Saída (exemplo):
+Output (example):
 
 ```
 pb
@@ -144,52 +129,59 @@ pb
 sa
 pa
 pa
+
 ```
 
 ---
 
-## 🛠️ Funcionalidades
+## 🛠️ Features
 
-### ✔ Validação
+### ✔  Validation
+* Valid numbers
+* Duplicate detection
+* Integer range limits
+* Multiple input formats
+### ✔ Sorting
 
-* Números válidos
-* Detecção de duplicatas
-* Limites de inteiros
-* Suporte a formatos variados
+* Different algorithms per input size
+* Minimum number of operations
+* Supports negative numbers
 
-### ✔ Ordenação
 
-* Algoritmos diferentes para cada tamanho
-* Mínimo de operações
-* Suporte a negativos
+### ✔ Memory Management
 
-### ✔ Gestão de Memória
+* No leaks
+* Full cleanup
 
-* Sem leaks
-* Liberação completa
 
-### ✔ Otimizações
 
-* Indexação de valores
-* Rotação combinada (`rr`, `rrr`)
-* Cálculo preciso de custos
-* Seleção do menor caminho
+### ✔ Optimizations
 
-### ✔ Tratamento de Erros
+* Value indexing
+* Combined rotations (`rr`, `rrr`)
+* Precise cost calculation
+* Shortest-path selection
 
-* Argumentos inválidos
-* Números duplicados
-* Falha de malloc
-* Stack já ordenada
+
+
+
+### ✔ Error Handling
+
+* Invalid arguments
+* Duplicate numbers
+* Malloc failure
+* Already-sorted stack
 
 ---
 
-## 📝 Exemplo Completo
+## 📝 Full Example
 
 ```
 $ ./push_swap 5 2 8 1 9
+```
 
-# Operações geradas (exemplo)
+**Generated operations (example)**
+```
 pb
 ra
 pb
@@ -198,24 +190,25 @@ sa
 pa
 pa
 ra
-
-# Stack final
+```
+**Final stack**
+```
 1 2 5 8 9
 ```
 
 ---
 
-## 🏆 Skills Desenvolvidas
+## 🏆 Skills Developed
 
-* Estruturas de dados
-* Análise de complexidade
-* Manipulação de listas ligadas
-* Otimização de operações
-* Estratégias avançadas de sorting
+* Data structures
+* Complexity analysis
+* Linked list manipulation
+* Operation optimization
+* Advanced sorting strategies
 
 
 ---
 
-## 📫 Contato
 
-Projeto por **Alexandre** — sugestões e issues são bem-vindas!
+
+Project by **[@spaerale](https://github.com/spaderale)** — suggestions and issues are welcome!
